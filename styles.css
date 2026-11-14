@@ -1,4 +1,5 @@
 :root {
+  color-scheme: light;
   --paper: #F6F1E7;
   --card: #FFFDF8;
   --ink: #23302B;
@@ -18,6 +19,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --paper: #18201D;
     --card: #212B27;
     --ink: #F1ECDF;
@@ -35,6 +37,7 @@
 }
 
 :root[data-theme="dark"] {
+  color-scheme: dark;
   --paper: #18201D;
   --card: #212B27;
   --ink: #F1ECDF;
@@ -535,7 +538,74 @@ dialog::backdrop {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.field-row .field {
   flex: 1 1 200px;
+}
+
+.reminder-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toggle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.toggle input {
+  position: absolute;
+  left: 0;
+  width: 44px;
+  height: 26px;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.toggle-track {
+  position: relative;
+  flex: 0 0 auto;
+  width: 44px;
+  height: 26px;
+  border-radius: 999px;
+  border: 1px solid var(--muted);
+  background: var(--paper);
+}
+
+.toggle-track::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: transform 0.15s ease;
+}
+
+.toggle input:checked + .toggle-track {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+
+.toggle input:checked + .toggle-track::after {
+  transform: translateX(18px);
+  background: var(--on-accent);
+}
+
+.toggle input:focus-visible + .toggle-track {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 .field-row {

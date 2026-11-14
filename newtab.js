@@ -114,6 +114,7 @@ function openPromiseDialog() {
   document.getElementById('promise-due-date').value = PK.toDateKey(new Date());
   document.getElementById('promise-error').textContent = '';
   updateDueDateVisibility();
+  updateReminderVisibility();
   promiseDialog.showModal();
 }
 
@@ -128,6 +129,19 @@ function updateDueDateVisibility() {
     dueDateField.classList.remove('hidden');
   } else {
     dueDateField.classList.add('hidden');
+  }
+}
+
+function isReminderEnabled() {
+  return document.getElementById('promise-reminder-toggle').checked;
+}
+
+function updateReminderVisibility() {
+  const reminderTimeField = document.getElementById('reminder-time-field');
+  if (isReminderEnabled()) {
+    reminderTimeField.classList.remove('hidden');
+  } else {
+    reminderTimeField.classList.add('hidden');
   }
 }
 
@@ -150,8 +164,11 @@ function validatePromiseFields(fields, now) {
       return 'That deadline has already passed. Choose a later date or time.';
     }
   }
+  if (fields.reminderEnabled && !fields.reminderTime) {
+    return 'Choose a reminder time, or turn the reminder off.';
+  }
   if (fields.reminderTime && fields.reminderTime >= fields.deadlineTime) {
-    return 'Set the reminder earlier than the deadline, or clear it.';
+    return 'Set the reminder earlier than the deadline, or turn the reminder off.';
   }
   return '';
 }
@@ -159,13 +176,19 @@ function validatePromiseFields(fields, now) {
 async function submitPromiseForm(event) {
   event.preventDefault();
   const now = Date.now();
+  const reminderEnabled = isReminderEnabled();
+  let reminderTime = '';
+  if (reminderEnabled) {
+    reminderTime = document.getElementById('promise-reminder').value;
+  }
   const fields = {
     text: document.getElementById('promise-text').value.trim(),
     why: document.getElementById('promise-why').value.trim(),
     schedule: getSelectedSchedule(),
     dueDateKey: document.getElementById('promise-due-date').value,
     deadlineTime: document.getElementById('promise-deadline').value,
-    reminderTime: document.getElementById('promise-reminder').value
+    reminderEnabled: reminderEnabled,
+    reminderTime: reminderTime
   };
 
   const errorMessage = validatePromiseFields(fields, now);
@@ -624,6 +647,11 @@ document.getElementById('promise-cancel').addEventListener('click', function () 
 for (const scheduleInput of document.querySelectorAll('input[name="schedule"]')) {
   scheduleInput.addEventListener('change', updateDueDateVisibility);
 }
+
+document.getElementById('promise-reminder-toggle').addEventListener('change', updateReminderVisibility);
+document.getElementById('promise-form').addEventListener('input', function () {
+  document.getElementById('promise-error').textContent = '';
+});
 
 document.getElementById('note-form').addEventListener('submit', submitNoteForm);
 document.getElementById('note-cancel').addEventListener('click', function () {

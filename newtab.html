@@ -57,10 +57,19 @@
           <label class="field-label" for="promise-deadline">Deadline time</label>
           <input id="promise-deadline" type="time" value="12:00">
         </div>
-        <div class="field">
-          <label class="field-label" for="promise-reminder">Remind me at <span class="optional">(optional)</span></label>
+      </div>
+
+      <div class="reminder-block">
+        <label class="toggle">
+          <input type="checkbox" id="promise-reminder-toggle">
+          <span class="toggle-track" aria-hidden="true"></span>
+          <span class="toggle-label">Remind me before the deadline</span>
+        </label>
+        <div class="field hidden" id="reminder-time-field">
+          <label class="field-label" for="promise-reminder">Remind me at</label>
           <input id="promise-reminder" type="time" value="09:00">
         </div>
+        <p class="small muted">Either way, you get one final warning 30 minutes before the deadline.</p>
       </div>
 
       <p class="notice">Promises lock once you make them. You can keep it, break it, or retire it, but the wording and deadline stay as written.</p>
