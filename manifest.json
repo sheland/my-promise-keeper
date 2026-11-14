@@ -1,0 +1,27 @@
+{
+  "manifest_version": 3,
+  "name": "My Promise Keeper",
+  "version": "1.0.0",
+  "description": "Keep your promises to yourself. See them on every new tab, get a gentle nudge, and check in honestly.",
+  "permissions": ["storage", "alarms", "notifications"],
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "My Promise Keeper",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

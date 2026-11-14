@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Tab</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="top-bar">
+      <span class="wordmark">My Promise Keeper</span>
+      <nav class="top-nav" aria-label="Main">
+        <span class="muted" id="today-date"></span>
+        <button type="button" class="link-button" id="nav-today">Today</button>
+        <button type="button" class="link-button" id="nav-history">History</button>
+        <button type="button" class="link-button quiet" id="theme-toggle">Theme: Auto</button>
+      </nav>
+    </header>
+
+    <main id="view-today" class="view"></main>
+    <main id="view-history" class="view hidden"></main>
+  </div>
+
+  <dialog id="promise-dialog" aria-labelledby="promise-dialog-title">
+    <form id="promise-form" class="dialog-form" novalidate>
+      <div>
+        <h2 class="dialog-title" id="promise-dialog-title">Make a promise</h2>
+        <p class="muted small">Say it in one sentence, the way you would say it to a friend.</p>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="promise-text">Your promise</label>
+        <textarea id="promise-text" class="promise-input" rows="2" maxlength="160" placeholder="I will finish two practice problems by noon."></textarea>
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="promise-why">Why it matters <span class="optional">(optional)</span></label>
+        <input id="promise-why" type="text" maxlength="160" placeholder="So I walk into interviews calm.">
+      </div>
+
+      <fieldset>
+        <legend>How often</legend>
+        <div class="choice-row">
+          <label class="choice"><input type="radio" name="schedule" value="once" checked><span>One time</span></label>
+          <label class="choice"><input type="radio" name="schedule" value="weekdays"><span>Every weekday</span></label>
+          <label class="choice"><input type="radio" name="schedule" value="daily"><span>Every day</span></label>
+        </div>
+      </fieldset>
+
+      <div class="field-row">
+        <div class="field" id="due-date-field">
+          <label class="field-label" for="promise-due-date">Due date</label>
+          <input id="promise-due-date" type="date">
+        </div>
+        <div class="field">
+          <label class="field-label" for="promise-deadline">Deadline time</label>
+          <input id="promise-deadline" type="time" value="12:00">
+        </div>
+        <div class="field">
+          <label class="field-label" for="promise-reminder">Remind me at <span class="optional">(optional)</span></label>
+          <input id="promise-reminder" type="time" value="09:00">
+        </div>
+      </div>
+
+      <p class="notice">Promises lock once you make them. You can keep it, break it, or retire it, but the wording and deadline stay as written.</p>
+      <p class="error-text" id="promise-error" role="alert"></p>
+
+      <div class="dialog-actions">
+        <button type="button" class="button" id="promise-cancel">Cancel</button>
+        <button type="submit" class="button button-primary">I promise</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="note-dialog" aria-labelledby="note-dialog-title">
+    <form id="note-form" class="dialog-form" novalidate>
+      <div><span class="pill pill-broken">Marking as broken</span></div>
+      <p class="promise-text-medium muted" id="note-promise-text"></p>
+      <h2 class="dialog-title" id="note-dialog-title">What got in the way?</h2>
+      <div class="field">
+        <label class="muted small" for="note-text">A sentence is enough. This is for you, so you can spot patterns later.</label>
+        <textarea id="note-text" rows="4" maxlength="400"></textarea>
+      </div>
+      <p class="error-text" id="note-error" role="alert"></p>
+      <div class="dialog-actions">
+        <button type="button" class="button" id="note-cancel">Go back</button>
+        <button type="submit" class="button button-primary">Save note</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="retire-dialog" aria-labelledby="retire-dialog-title">
+    <form id="retire-form" class="dialog-form" novalidate>
+      <h2 class="dialog-title" id="retire-dialog-title">Retire this promise?</h2>
+      <p class="promise-text-medium muted" id="retire-promise-text"></p>
+      <p class="small muted">Retiring ends the promise and frees its slot. Your past results stay in your record, and the retirement shows in your history.</p>
+      <div class="dialog-actions">
+        <button type="button" class="button" id="retire-cancel">Keep it</button>
+        <button type="submit" class="button button-primary">Retire promise</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="shared.js"></script>
+  <script src="newtab.js"></script>
+</body>
+</html>
